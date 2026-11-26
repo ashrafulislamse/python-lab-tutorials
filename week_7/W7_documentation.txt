@@ -1,0 +1,81 @@
+WEEK 7 TUTORIAL - FOODEXPRESS DEBUGGING REPORT
+==============================================
+
+1. BUGS IDENTIFIED WHEN TESTING THE TEMPLATE
+--------------------------------------------
+
+Bug 1 (main.py): the import line is blank, so main.py never imports the
+order function. Running the program stops with NameError: name is not
+defined, because "total = ..." calls a function that was never imported.
+
+Bug 2 (main.py): no input validation. price = float(input(...)) and
+quantity = int(input(...)) crash with ValueError when the customer types
+letters or an empty value. This is the crash customers complained about.
+Negative numbers are also accepted, so the system accepts invalid orders
+such as a price of -5.
+
+Bug 3 (food_order.py): the template function returns three separate
+values ("return ____, ____, ____"), but the caller needs one total. The
+tests also expect a function named food_order, while the template named
+it calculate_total. A three-value return cannot be printed as
+"Total Payment = RM {total:.2f}" and the test names do not match.
+
+2. HOW THE BUGS WERE FIXED
+--------------------------
+
+main.py:
+- the import line is now: from food_order import food_order
+- input is read inside try/except ValueError, so letters or empty input
+  print a clear message instead of crashing
+- the result of food_order() is checked: error strings are printed as
+  they are, and a valid total is printed with 2 decimal places
+
+food_order.py:
+- one function food_order(price, quantity) is used, the same name the
+  tests call
+- it rejects price <= 0 by returning "invalid price"
+- it rejects quantity <= 0 by returning "invalid quantity"
+- valid input returns one value: price * quantity
+
+3. INPUT VALIDATION ADDED
+-------------------------
+
+| Invalid input          | Behaviour after the fix                     |
+|------------------------|---------------------------------------------|
+| letters for the price  | "Invalid input..." message, no crash        |
+| letters for quantity   | "Invalid input..." message, no crash        |
+| price of 0 or negative | "invalid price"                             |
+| quantity of 0 or less  | "invalid quantity"                          |
+
+4. TESTING WITH PYTEST
+----------------------
+
+Commands used:
+
+    pip install pytest
+    pytest
+
+test_food_order.py collects 4 test functions:
+
+| Test function        | Checks                                     |
+|----------------------|--------------------------------------------|
+| test_order1          | food_order(10, 2) == 20                    |
+| test_order2          | food_order(10, 3) == 30, food_order(50, 2) == 100, food_order(10, 1) == 10 |
+| test_invalid_price   | food_order(-5, 2) == "invalid price"       |
+| test_invalid_quantity| food_order(10, 0) == "invalid quantity"    |
+
+Result: 4 passed, matching the expected final output of the tutorial.
+
+5. SAMPLE RUN
+-------------
+
+    Price (RM): 10
+    Quantity: 2
+    Total Payment = RM 20.00
+
+    Price (RM): abc
+    Invalid input. Price must be a number and quantity a whole number.
+
+    Price (RM): -5
+    Quantity: 2
+    invalid price
