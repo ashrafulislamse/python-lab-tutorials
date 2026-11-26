@@ -1,0 +1,6 @@
+# lecturer's brief and reference images stay out of the repository
+brief/
+
+# python cache
+__pycache__/
+*.pyc
