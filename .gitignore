@@ -1,6 +1,9 @@
 # lecturer's brief and reference images stay out of the repository
 brief/
 
+# raw screen recording, only the trimmed demo.mp4 is tracked
+week8_original_recording.mp4
+
 # python cache
 __pycache__/
 *.pyc
