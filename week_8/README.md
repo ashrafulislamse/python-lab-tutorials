@@ -81,6 +81,6 @@ TOTAL     : RM 11.30
 
 ## 4.4 Demonstration
 
-![Week 8 receipt demo](demo.mp4)
+<video src="https://raw.githubusercontent.com/ashrafulislamse/python-lab-tutorials/main/week_8/demo.mp4" controls muted width="640"></video>
 
-The recording shows one delivery order (Y, total RM 11.30) and one self pickup order (N, total RM 6.30).
+The recording shows the program running for both delivery options: Y gives a total of RM 11.30 and N gives RM 6.30.
