@@ -81,4 +81,6 @@ TOTAL     : RM 11.30
 
 ## 4.4 Demonstration
 
-A screen recording of the program running (video/GIF) is recorded separately and attached to the submission, showing a delivery order (Y) and a self pickup order (N).
+![Week 8 receipt demo](demo.mp4)
+
+The recording shows one delivery order (Y, total RM 11.30) and one self pickup order (N, total RM 6.30).
